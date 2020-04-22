@@ -9,9 +9,9 @@ This Sample aim to understand the concepts of two main Jetpack components - View
 <p><b> Another important use of ViewModel is that it pcan be used a communication layer between different fragments of activity so that
 they nether need to talk to other fragment directly. </b></p>
 <p><b> OnCleared() method is last method called inside ViewModel before its destruction.Useful if you want to clear some references in order to prevent memory leak.</p></p>
+<p><b> If you want context inside your Viewmodel then use AndroidViewModel inside it as it have default application context inside it. </b></p>
 
 <p><b> * Disadvantage of ViewModel over SavedInstanceState is It do not survice on process kill due to low memory but SavedInstanceState does. </b></p>
-
 
 <h2> Implementation of ViewModel </h2>
 <p><b> Create a class and Extends a ViewModel class inside it. </b></p>
@@ -27,13 +27,13 @@ mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
 <h2> ViewModelProvider</h2>
 <p><b> An utility class that provides ViewModel for a scope.</p></b>
-<p><b> ViewModelProvider.Factory is use to create a custom constructor inside ViewModel</b></p>
+<p><b> ViewModelProvider.Factory is use to create a custom constructor inside ViewModel.</b></p>
 
 
 
 
 <h2> How ViewModel survives rotation changes </h2>
-<p><b>When you write ViewModelProvider(this).get(MainViewModel::class.java) then ViewModelProvider map the ViewModel instance with the this referencing
+<p><b>When you write ViewModelProvider(this).get(MainViewModel::class.java) then ViewModelProvider map the ViewModel instance with "this" referencing
 UI component. For the first time it creates an instance of ViewModel then when you rotate the device then it uses the same instance of ViewModel
 a Singleton pattern is internally used for saving the state of ViewModel.</b></p>
 
