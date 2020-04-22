@@ -1,15 +1,14 @@
 # ViewModel_LiveData_Kotlin_Sample
 This Sample aim to understand the concepts of two main Jetpack components - ViewModel and LiveData with Kotlin as Programming language. Please read the ReadMe file for the theoretical description.
-
 <h2>ViewModel</h2>
-<p><b> ViewModel is a class responsible for preparing and managing data to UI components(Activity or fragments) and also survives in orientation changes.</b></p>
-<p><b> It remains alive until its reference scope is alive.</b></p>
-<p><b> It should never access your view hierarchy or hold any reference of UI.</b></p>
-<p><b> It was announced in google IO 2017.</b></p>
-<p><b> Another important use of ViewModel is that it pcan be used a communication layer between different fragments of activity so that
+<p><b>1. ViewModel is a class responsible for preparing and managing data to UI components(Activity or fragments) and also survives in orientation changes.</b></p>
+<p><b>2. It remains alive until its reference scope is alive.</b></p>
+<p><b>3. It should never access your view hierarchy or hold any reference of UI.</b></p>
+<p><b>4. It was announced in google IO 2017.</b></p>
+<p><b>5. Another important use of ViewModel is that it pcan be used a communication layer between different fragments of activity so that
 they nether need to talk to other fragment directly. </b></p>
-<p><b> OnCleared() method is last method called inside ViewModel before its destruction.Useful if you want to clear some references in order to prevent memory leak.</p></p>
-<p><b> If you want context inside your Viewmodel then use AndroidViewModel inside it as it have default application context inside it. </b></p>
+<p><b>6. OnCleared() method is last method called inside ViewModel before its destruction.Useful if you want to clear some references in order to prevent memory leak.</p></p>
+<p><b>7. If you want context inside your Viewmodel then use AndroidViewModel inside it as it have default application context inside it. </b></p>
 
 <p><b> * Disadvantage of ViewModel over SavedInstanceState is It do not survice on process kill due to low memory but SavedInstanceState does. </b></p>
 
