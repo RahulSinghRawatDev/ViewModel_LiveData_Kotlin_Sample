@@ -28,10 +28,17 @@ mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 <h2> ViewModelProvider</h2>
 <p><b> An utility class that provides ViewModel for a scope.</p></b>
 <p><b> ViewModelProvider.Factory is use to create a custom constructor inside ViewModel.</b></p>
+<pre><code>
+class MyViewModelFactory(val arg:Int) :ViewModelProvider.Factory{
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return modelClass.getConstructor(Int::class.java).newInstance(arg)
+    }
+}
 
 
-
-
+mainViewModel = ViewModelProvider(this,MyViewModelFactory(20)).get(MainViewModel::class.java)
+</code></pre>
 <h2> How ViewModel survives rotation changes </h2>
 <p><b>When you write ViewModelProvider(this).get(MainViewModel::class.java) then ViewModelProvider map the ViewModel instance with "this" referencing
 UI component. For the first time it creates an instance of ViewModel then when you rotate the device then it uses the same instance of ViewModel
