@@ -29,13 +29,12 @@ mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 <p><b> An utility class that provides ViewModel for a scope.</p></b>
 <p><b> ViewModelProvider.Factory is use to create a custom constructor inside ViewModel.</b></p>
 <pre><code>
-class MyViewModelFactory(val arg:Int) :ViewModelProvider.Factory{
-
+class MyViewModelFactory(val arg:Int) :ViewModelProvider.Factory
+{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return modelClass.getConstructor(Int::class.java).newInstance(arg)
     }
 }
-
 
 mainViewModel = ViewModelProvider(this,MyViewModelFactory(20)).get(MainViewModel::class.java)
 </code></pre>
