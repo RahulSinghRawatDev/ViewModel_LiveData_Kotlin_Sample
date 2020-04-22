@@ -22,7 +22,7 @@ class MainViewModel : ViewModel() {
 </pre></code>
 <p><b> Create a ViewModelProvider instance inside your UI referencing that class which extends ViewModel class.Earlier it was ViewModelProviders but it is deprecated now. </b></p>
 <pre><code>
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 </code></pre>
 
 <h2> ViewModelProvider</h2>
@@ -33,4 +33,7 @@ class MainViewModel : ViewModel() {
 
 
 <h2> How ViewModel survives rotation changes </h2>
+<p><b>When you write ViewModelProvider(this).get(MainViewModel::class.java) then ViewModelProvider map the ViewModel instance with the this referencing
+UI component. For the first time it creates an instance of ViewModel then when you rotate the device then it uses the same instance of ViewModel
+a Singleton pattern is internally used for saving the state of ViewModel.</b></p>
 
