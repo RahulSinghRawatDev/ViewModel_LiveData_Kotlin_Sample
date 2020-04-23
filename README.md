@@ -42,3 +42,63 @@ mainViewModel = ViewModelProvider(this,MyViewModelFactory(20)).get(MainViewModel
 UI component. For the first time it creates an instance of ViewModel then when you rotate the device then it uses the same instance of ViewModel
 a Singleton pattern is internally used for saving the state of ViewModel.</b></p>
 
+<h2> LiveData </h2>
+<p><b> It is an observable Data holder class. Its Lifecycle aware. </b></p>
+<p><b> Its instance is created inside the ViewModel class and Observer inside the UI(Activity or fraagment). </b></p>
+<p><b> It only trigger on Active UI thus saving you from OutOfMemory and UI related crashes. </b></p>
+
+<h2>Ways to Transform liveData</h2>
+<p><b> 1. Map() - apply function to output of A liveData and send Result to LiveData B.</b></p>
+<p><b> 2. SwitchMap() - apply function that swaps LiveData observer is listening to. </b></p>
+<p><b> 3. MediatorLiveData - It is subclass of liveData.LiveData without mmultiple sources for custom transformation. </b></p>
+<p><b> * Both Map() and SwitchMap() returns MediatorLiveData object. </b></p>
+
+<pre><code>
+
+<**************************  Internal Implementation of Map and SwitchMap  *********************>
+@MainThread
+    public static <X, Y> LiveData<Y> map(@NonNull LiveData<X> source,
+
+        @NonNull final Function<X, Y> func) {
+        final MediatorLiveData<Y> result = new MediatorLiveData<>();
+        result.addSource(source, new Observer<X>() {
+            @Override
+            public void onChanged(@Nullable X x) {
+                result.setValue(func.apply(x));
+            }
+        });
+        return result;
+    }
+
+   @MainThread
+    public static <X, Y> LiveData<Y> switchMap(@NonNull LiveData<X> trigger,
+
+        @NonNull final Function<X, LiveData<Y>> func) {
+        final MediatorLiveData<Y> result = new MediatorLiveData<>();
+
+        result.addSource(trigger, new Observer<X>() {
+            LiveData<Y> mSource;
+
+            @Override
+            public void onChanged(@Nullable X x) {
+                LiveData<Y> newLiveData = func.apply(x);
+                if (mSource == newLiveData) {
+                    return;
+                }
+                if (mSource != null) {
+                    result.removeSource(mSource);
+                }
+                mSource = newLiveData;
+                if (mSource != null) {
+                    result.addSource(mSource, new Observer<Y>() {
+                        @Override
+                        public void onChanged(@Nullable Y y) {
+                            result.setValue(y);
+                        }
+                    });
+                }
+            }
+        });
+        return result;
+    }
+</code></pre>
